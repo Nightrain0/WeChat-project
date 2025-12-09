@@ -1,0 +1,71 @@
+<view class="container">
+  <!-- 顶部操作栏 -->
+  <view class="top-bar">
+    <view class="add-box" bindtap="addImages">
+      <text class="icon">➕</text>
+      <text>添加图片</text>
+    </view>
+    <view class="stats">
+      已选 {{imageList.length}} 张
+    </view>
+  </view>
+
+  <!-- 图片列表 -->
+  <scroll-view scroll-y class="list-area">
+    <block wx:if="{{imageList.length > 0}}">
+      <view class="list-item" wx:for="{{imageList}}" wx:key="tempFilePath">
+        <image src="{{item.tempFilePath}}" mode="aspectFill" class="thumb"></image>
+        <view class="info">
+          <text class="name">图片 {{index + 1}}</text>
+          <text class="detail" wx:if="{{item.status === 'done'}}">
+            {{item.orgSizeStr}} -> {{item.newSizeStr}}
+          </text>
+          <text class="detail" wx:else>
+            {{item.orgSizeStr}}
+          </text>
+        </view>
+        <!-- 状态图标 -->
+        <view class="status">
+          <text wx:if="{{item.status === 'pending'}}" class="status-dot gray"></text>
+          <text wx:if="{{item.status === 'processing'}}" class="status-text">处理中...</text>
+          <icon wx:if="{{item.status === 'done'}}" type="success" size="20"/>
+          <icon wx:if="{{item.status === 'error'}}" type="warn" size="20"/>
+        </view>
+        <!-- 删除按钮 -->
+        <view class="delete-btn" catchtap="removeImage" data-index="{{index}}" wx:if="{{item.status !== 'processing'}}">×</view>
+      </view>
+    </block>
+    <view wx:else class="empty-tip">
+      <text>请点击上方按钮添加图片</text>
+      <text>支持多选，批量处理更高效</text>
+    </view>
+  </scroll-view>
+
+  <!-- 设置面板 -->
+  <view class="settings-panel">
+    <view class="setting-row">
+      <text class="label">限制大小(KB)</text>
+      <input class="input" type="number" placeholder="默认不限制" bindinput="onSizeInput" value="{{targetSizeKB}}"/>
+    </view>
+    <view class="setting-row">
+      <text class="label">统一宽度(px)</text>
+      <input class="input" type="number" placeholder="保持原比例" bindinput="onWidthInput" value="{{targetWidth}}"/>
+    </view>
+    <view class="setting-row">
+      <text class="label">统一高度(px)</text>
+      <input class="input" type="number" placeholder="保持原比例" bindinput="onHeightInput" value="{{targetHeight}}"/>
+    </view>
+    <view class="tip-row" wx:if="{{targetWidth && targetHeight}}">
+      <text>注意：同时指定宽高会强制拉伸图片</text>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="footer">
+    <button class="btn main" bindtap="startBatch" loading="{{isProcessing}}" disabled="{{isProcessing || imageList.length === 0}}">开始处理</button>
+    <button class="btn sub" bindtap="saveAll" disabled="{{successCount === 0}}">保存全部 ({{successCount}})</button>
+  </view>
+
+  <!-- 隐藏画布 (用于处理) -->
+  <canvas type="2d" id="batchCanvas" style="position: absolute; left: -9999px; width: {{cWidth}}px; height: {{cHeight}}px;"></canvas>
+</view>

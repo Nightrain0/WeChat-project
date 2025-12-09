@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/idphoto/idphoto",
+    "pages/compress/compress",
+    "pages/batch/batch",
+    "pages/watermark/watermark",
+    "pages/stitch/stitch",
+    "pages/ocr/ocr"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "白枫办公助手",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

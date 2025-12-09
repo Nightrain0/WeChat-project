@@ -1,0 +1,33 @@
+<view class="container">
+  
+  <!-- 模式选择栏 -->
+  <view class="mode-bar">
+    <text class="mode-label">识别类型：</text>
+    <picker bindchange="onModeChange" value="{{modeIndex}}" range="{{modes}}" range-key="name">
+      <view class="picker-wrap">
+        <text class="picker-text">{{modes[modeIndex].name}}</text>
+        <text class="arrow">▼</text>
+      </view>
+    </picker>
+  </view>
+
+  <view class="image-box" bindtap="chooseImage">
+    <image wx:if="{{src}}" src="{{src}}" mode="aspectFit" class="img"></image>
+    <view wx:else class="placeholder">
+      <text class="icon">📷</text>
+      <text>点击拍摄/上传{{modes[modeIndex].name}}</text>
+    </view>
+  </view>
+
+  <view class="result-box">
+    <view class="bar">
+      <text class="label">识别结果：</text>
+      <text class="btn-copy" bindtap="copyText" wx:if="{{textResult}}">复制</text>
+    </view>
+    <textarea class="text-area" value="{{textResult}}" placeholder="选择对应的类型，识别结果更准确..." disabled maxlength="-1"></textarea>
+  </view>
+  
+  <button class="btn-main" bindtap="chooseImage" loading="{{isLoading}}">
+    {{src ? '重新识别' : '开始识别'}}
+  </button>
+</view>

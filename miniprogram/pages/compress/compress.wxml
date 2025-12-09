@@ -1,0 +1,84 @@
+<view class="container">
+  
+  <!-- 图片预览区 -->
+  <view class="preview-area" bindtap="chooseImage">
+    <image wx:if="{{currentImage}}" src="{{currentImage}}" mode="aspectFit" class="main-img"></image>
+    <view wx:else class="placeholder">
+      <text class="icon">➕</text>
+      <text class="text">点击上传图片</text>
+    </view>
+    
+    <!-- 原始信息 -->
+    <view class="info-tag" wx:if="{{imageInfo.size}}">
+      原图: {{imageInfo.width}}x{{imageInfo.height}} | {{imageInfo.sizeStr}}
+    </view>
+  </view>
+
+  <!-- 设置面板 -->
+  <view class="settings-panel" wx:if="{{currentImage}}">
+    
+    <!-- 压缩目标 1: 文件大小 -->
+    <view class="setting-item">
+      <view class="label-row">
+        <text class="label">限制文件大小 (KB)</text>
+        <switch checked="{{enableSizeLimit}}" bindchange="toggleSizeLimit" color="#438edb" scale="0.7"/>
+      </view>
+      <input 
+        class="input-box" 
+        type="number" 
+        placeholder="例如: 200" 
+        value="{{targetSizeKB}}" 
+        bindinput="onSizeInput"
+        disabled="{{!enableSizeLimit}}"
+      />
+      <text class="tip">留空或关闭则不限制大小</text>
+    </view>
+
+    <!-- 压缩目标 2: 像素尺寸 -->
+    <view class="setting-item">
+      <view class="label-row">
+        <text class="label">修改分辨率 (像素)</text>
+        <switch checked="{{enableResize}}" bindchange="toggleResize" color="#438edb" scale="0.7"/>
+      </view>
+      <view class="size-inputs">
+        <input class="input-box small" placeholder="宽" value="{{targetWidth}}" bindinput="onWidthInput" disabled="{{!enableResize}}"/>
+        <text class="x">×</text>
+        <input class="input-box small" placeholder="高" value="{{targetHeight}}" bindinput="onHeightInput" disabled="{{!enableResize}}"/>
+      </view>
+      <text class="tip">只填一边则自动等比缩放</text>
+    </view>
+
+    <!-- 压缩按钮 -->
+    <button class="btn-compress" bindtap="startCompress" loading="{{processing}}">开始处理</button>
+  </view>
+
+  <!-- 结果展示弹窗 -->
+  <view class="result-modal" wx:if="{{resultImage}}">
+    <view class="modal-content">
+      <view class="modal-header">处理完成</view>
+      <view class="result-info">
+        <view class="compare-row">
+          <text>体积:</text>
+          <text class="old">{{imageInfo.sizeStr}}</text>
+          <text class="arrow">→</text>
+          <text class="new">{{resultInfo.sizeStr}}</text>
+        </view>
+        <view class="compare-row">
+          <text>尺寸:</text>
+          <text class="old">{{imageInfo.width}}x{{imageInfo.height}}</text>
+          <text class="arrow">→</text>
+          <text class="new">{{resultInfo.width}}x{{resultInfo.height}}</text>
+        </view>
+      </view>
+      <image src="{{resultImage}}" mode="aspectFit" class="result-img" bindtap="previewResult"></image>
+      <view class="modal-actions">
+        <button class="btn-secondary" bindtap="closeResult">关闭</button>
+        <button class="btn-primary" bindtap="saveImage">保存到相册</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 隐藏画布用于压缩 -->
+  <canvas type="2d" id="compressCanvas" style="position: absolute; left: -9999px; width: {{cWidth}}px; height: {{cHeight}}px;"></canvas>
+
+</view>

@@ -1,0 +1,11 @@
+{
+  "name": "change-bg",
+  "version": "1.0.0",
+  "description": "白枫办公助手-寸照换背景",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "jimp": "^0.16.1",
+    "axios": "^0.21.1"
+  }
+}

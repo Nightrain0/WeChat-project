@@ -1,0 +1,10 @@
+{
+  "name": "baidu-seg",
+  "version": "1.0.0",
+  "description": "百度人像分割",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "axios": "^1.6.0"
+  }
+}

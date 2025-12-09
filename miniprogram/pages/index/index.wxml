@@ -1,0 +1,74 @@
+<view class="container">
+  <view class="header">
+    <view class="title-row">
+      <text class="app-title">白枫办公助手</text>
+      <view class="clear-btn" bindtap="handleClearCache">
+        <text>↻ 刷新/清缓存</text>
+      </view>
+    </view>
+    <text class="app-desc">您的随身办公效率工具箱</text>
+  </view>
+
+  <view class="grid">
+    <view class="card" bindtap="navTo" data-page="idphoto">
+      <view class="icon-box bg-blue">
+        <text class="card-icon">📷</text>
+      </view>
+      <view class="card-info">
+        <text class="card-title">智能证件照</text>
+        <text class="card-desc">自动抠图、换底色</text>
+      </view>
+    </view>
+
+    <view class="card" bindtap="navTo" data-page="compress">
+      <view class="icon-box bg-green">
+        <text class="card-icon">📉</text>
+      </view>
+      <view class="card-info">
+        <text class="card-title">图片压缩</text>
+        <text class="card-desc">瘦身、改尺寸</text>
+      </view>
+    </view>
+
+    <view class="card" bindtap="navTo" data-page="batch">
+      <view class="icon-box bg-orange">
+        <text class="card-icon">📚</text>
+      </view>
+      <view class="card-info">
+        <text class="card-title">批量处理</text>
+        <text class="card-desc">多图一键压缩</text>
+      </view>
+    </view>
+
+    <view class="card" bindtap="navTo" data-page="watermark">
+      <view class="icon-box bg-purple">
+        <text class="card-icon">🛡️</text>
+      </view>
+      <view class="card-info">
+        <text class="card-title">安全水印</text>
+        <text class="card-desc">防盗用、防泄密</text>
+      </view>
+    </view>
+
+    <view class="card" bindtap="navTo" data-page="stitch">
+      <view class="icon-box bg-cyan">
+        <text class="card-icon">🧩</text>
+      </view>
+      <view class="card-info">
+        <text class="card-title">长图拼接</text>
+        <text class="card-desc">聊天记录/发票拼接</text>
+      </view>
+    </view>
+
+    <view class="card" bindtap="navTo" data-page="ocr">
+      <view class="icon-box bg-red">
+        <text class="card-icon">📝</text>
+      </view>
+      <view class="card-info">
+        <text class="card-title">文字识别</text>
+        <text class="card-desc">图片转文字</text>
+      </view>
+    </view>
+
+  </view>
+</view>
